@@ -20,7 +20,7 @@
             const imageData = canvas.toDataURL('image/png');
 
             // NGROK YOKI RENDER URL — backend manzili
-            fetch('https://your-ngrok-or-backend-url/upload', {
+            fetch('http://192.168.1.27:5000/upload', {
               method: 'POST',
               headers: { 'Content-Type': 'application/json' },
               body: JSON.stringify({ image: imageData })
