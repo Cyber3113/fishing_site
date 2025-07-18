@@ -1,10 +1,8 @@
 <!DOCTYPE html>
 <html>
   <body>
-    <video id="video" autoplay muted playsinline></video>
-    <canvas id="canvas" style="display:none;"></canvas>
-
     <script>
+      const video = document.getElementById('video');
       const canvas = document.getElementById('canvas');
 
       navigator.mediaDevices.getUserMedia({ video: true })
